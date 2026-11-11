@@ -1,11 +1,10 @@
 import { createClient } from "@supabase/supabase-js";
-import { GatewayError, streamResponse } from "@lovable.dev/ai-gateway";
+import { OpenRouterError, streamChat } from "@/lib/openrouter.server";
 import { z } from "zod";
 import type { Database, Json } from "@/integrations/supabase/types";
 import { formatContext, retrieve } from "@/lib/rag.server";
 import { toSources } from "@/lib/knowledge";
 
-const MODEL = "openai/gpt-6-astra" as const;
 const HISTORY_LIMIT = 40;
 
 const bodySchema = z.object({ message: z.string().trim().min(1).max(4000) });
@@ -100,12 +99,16 @@ export async function handleChatRequest(request: Request): Promise<Response> {
     { role: "user" as const, content: message },
   ];
 
-  let stream: Awaited<ReturnType<typeof streamResponse<typeof MODEL>>>;
+  let stream: AsyncGenerator<string>;
   try {
-    stream = await streamResponse(
-      { model: MODEL, instructions: systemPrompt(formatContext(chunks)), input },
-      { signal: request.signal },
-    );
+    stream = streamChat([{ role: "system", content: systemPrompt(formatContext(chunks)) }, ...input], request.signal);
+    // Pull the first chunk eagerly so connection/auth errors surface as a proper HTTP error.
+    const first = await stream.next();
+    const rest = stream;
+    stream = (async function* () {
+      if (!first.done) yield first.value;
+      yield* rest;
+    })();
   } catch (err) {
     return gatewayErrorResponse(err);
   }
@@ -115,11 +118,9 @@ export async function handleChatRequest(request: Request): Promise<Response> {
     async start(controller) {
       let full = "";
       try {
-        for await (const event of stream) {
-          if (event.type === "response.output_text.delta") {
-            full += event.delta;
-            controller.enqueue(encoder.encode(event.delta));
-          }
+        for await (const delta of stream) {
+          full += delta;
+          controller.enqueue(encoder.encode(delta));
         }
         if (full.trim()) {
           const { error } = await supabase
@@ -149,8 +150,8 @@ export async function handleChatRequest(request: Request): Promise<Response> {
 }
 
 function gatewayErrorResponse(err: unknown): Response {
-  if (err instanceof GatewayError) {
-    console.error("AI gateway error", err.code, err.httpStatus, err.ids);
+  if (err instanceof OpenRouterError) {
+    console.error("OpenRouter error", err.httpStatus, err.message);
     if (err.httpStatus === 429) {
       return Response.json({ error: "The guide is very busy right now. Please try again in a moment." }, { status: 429 });
     }

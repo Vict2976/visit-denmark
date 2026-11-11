@@ -1,17 +1,8 @@
-import { generateEmbeddings } from "@lovable.dev/ai-gateway";
+import { embed } from "@/lib/openrouter.server";
 import { cosine, keywordScores, knowledge, type KnowledgeChunk } from "@/lib/knowledge";
-
-const EMBED_MODEL = "google/gemini-embedding-2" as const;
 
 // Chunk embeddings are computed once per server instance and reused.
 let chunkVectors: Promise<number[][]> | null = null;
-
-async function embed(texts: string[]): Promise<number[][]> {
-  const res = await generateEmbeddings({ model: EMBED_MODEL, input: texts });
-  return [...res.data]
-    .sort((a, b) => a.index - b.index)
-    .map((d) => (typeof d.embedding === "string" ? [] : d.embedding));
-}
 
 function getChunkVectors() {
   if (!chunkVectors) {

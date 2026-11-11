@@ -66,7 +66,7 @@ export const createTripPlan = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => planRequestSchema.parse(d))
   .handler(async ({ data, context }) => {
-    const { generateResponse, GatewayError } = await import("@lovable.dev/ai-gateway");
+    const { completeJson } = await import("@/lib/openrouter.server");
     const { retrieve, formatContext } = await import("@/lib/rag.server");
     const { toSources } = await import("@/lib/knowledge");
 
@@ -76,20 +76,23 @@ export const createTripPlan = createServerFn({ method: "POST" })
 
     let plan: TripPlan;
     try {
-      const res = await generateResponse({
-        model: "openai/gpt-6-astra",
-        instructions: `You are Hej Guide, an expert Denmark trip planner. Build a realistic day-by-day itinerary. Group nearby sights, include travel time between cities, suggest Danish food, and give approximate per-person daily costs in DKK (excluding accommodation) matching the budget level. Base sights on this site knowledge where possible:\n\n${formatContext(chunks)}`,
-        input: `Plan a ${data.days}-day trip. Cities: ${data.cities.join(", ")}. Month: ${data.month || "not specified"}. Budget: ${data.budget}. Interests: ${data.interests.join(", ") || "general sightseeing"}. Extra notes: ${data.notes || "none"}. Return exactly ${data.days} days.`,
-        text: { format: { type: "json_schema", name: "trip_plan", strict: true, schema: planSchema } },
-      });
-      const text = res.output
-        .flatMap((o) => (o.type === "message" ? o.content : []))
-        .map((c) => (c.type === "output_text" ? c.text : ""))
-        .join("");
+      const text = await completeJson(
+        [
+          {
+            role: "system",
+            content: `You are Hej Guide, an expert Denmark trip planner. Build a realistic day-by-day itinerary. Group nearby sights, include travel time between cities, suggest Danish food, and give approximate per-person daily costs in DKK (excluding accommodation) matching the budget level. Base sights on this site knowledge where possible:\n\n${formatContext(chunks)}`,
+          },
+          {
+            role: "user",
+            content: `Plan a ${data.days}-day trip. Cities: ${data.cities.join(", ")}. Month: ${data.month || "not specified"}. Budget: ${data.budget}. Interests: ${data.interests.join(", ") || "general sightseeing"}. Extra notes: ${data.notes || "none"}. Return exactly ${data.days} days.`,
+          },
+        ],
+        "trip_plan",
+        planSchema,
+      );
       plan = JSON.parse(text) as TripPlan;
     } catch (err) {
-      if (err instanceof GatewayError) console.error("planner gateway error", err.code, err.httpStatus, err.ids);
-      else console.error("planner failed", err);
+      console.error("planner failed", err);
       throw new Error("The planner couldn't build your trip right now. Please try again.");
     }
 
