@@ -1,0 +1,14 @@
+stack: react-typescript
+packageManager: npm
+commit: 752792a0260f1eda26215a6141c2393f33707f96
+verifiedAt: 2026-11-11T15:37:23.990Z
+commands:
+  install: npm ci
+  build: npm run build
+  analyze: npm run lint
+  test: npm test
+status:
+  install: none
+  build: none
+  analyze: none
+  test: none
