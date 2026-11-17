@@ -1,0 +1,241 @@
+# Module: src/components [AI]
+
+(part 1 of 2) Provides shared UI elements, page layouts, navigation/footer components, and rich AI chat interaction components (streaming messages, conversation containers, prompt inputs, and shimmer animations). (part 2 of 2) A collection of reusable, accessible UI primitive components (shadcn/ui style) built with Radix UI, CVA, and Tailwind CSS.
+
+_This module does not fit in one model call, so it was read in 2 parts and their summaries were combined without a further model call._
+
+## Key files
+- `src/components/ai-elements/conversation.tsx`: Conversation stream container supporting auto-scrolling to bottom, empty states, and markdown export.
+- `src/components/ai-elements/message.tsx`: Message component rendering markdown (with code, cjk, math, mermaid extensions) and multi-branch navigation for AI outputs.
+- `src/components/ai-elements/prompt-input.tsx`: Prompt input controller with attachment handling and screen capture capabilities.
+- `src/components/ai-elements/shimmer.tsx`: Motion-based shimmer placeholder animation for streaming/loading text.
+- `src/components/site-header.tsx`: Global application navigation bar handling auth state, routing, and mobile responsiveness.
+- `src/components/site-footer.tsx`: Global site footer with emergency numbers and navigation links.
+- `src/components/page-hero.tsx`: Top-of-page header section supporting backdrop images and hero headers.
+- `src/components/chat-cta.tsx`: Call-to-action banner routing visitors to the AI chat guide.
+- `src/components/ui/label.tsx`: Accessible label primitive wrapping Radix Label with custom styling variants.
+- `src/components/ui/menubar.tsx`: Desktop menubar navigation system components based on Radix Menubar.
+- `src/components/ui/navigation-menu.tsx`: Radix-based navigation menu with animated viewports, indicators, and links.
+- `src/components/ui/pagination.tsx`: Pagination control system with item wrappers, links, previous/next, and ellipsis.
+- `src/components/ui/popover.tsx`: Floating popover overlay primitive wrapping Radix Popover.
+- `src/components/ui/progress.tsx`: Horizontal progress bar element based on Radix Progress.
+- `src/components/ui/radio-group.tsx`: Radio selection group and items built on Radix Radio Group.
+- `src/components/ui/resizable.tsx`: Resizable panel layouts using react-resizable-panels.
+- `src/components/ui/scroll-area.tsx`: Custom scrollable container wrapping Radix Scroll Area.
+- `src/components/ui/select.tsx`: Dropdown select component with scroll buttons, items, and viewports using Radix Select.
+- `src/components/ui/separator.tsx`: Visual and accessible horizontal/vertical divider using Radix Separator.
+- `src/components/ui/sheet.tsx`: Slide-out modal drawer overlay wrapping Radix Dialog primitives.
+- `src/components/ui/sidebar.tsx`: Context provider and multi-layout responsive sidebar implementation supporting desktop collapse and mobile sheet drawers.
+- `src/components/ui/skeleton.tsx`: Animated placeholder skeleton for loading states.
+- `src/components/ui/slider.tsx`: Interactive numeric range slider wrapping Radix Slider.
+- `src/components/ui/sonner.tsx`: Toaster wrapper component integrating Sonner notifications.
+- `src/components/ui/spinner.tsx`: Spinning loader icon indicator.
+- `src/components/ui/switch.tsx`: Toggle switch primitive built on Radix Switch.
+- `src/components/ui/table.tsx`: Stylized HTML table subcomponents (Header, Body, Footer, Row, Head, Cell, Caption).
+- `src/components/ui/tabs.tsx`: Tabbed content navigation system built on Radix Tabs.
+- `src/components/ui/textarea.tsx`: Styled multiline form textarea component.
+- `src/components/ui/toggle.tsx`: Two-state toggle button primitive wrapping Radix Toggle.
+- `src/components/ui/toggle-group.tsx`: Grouped toggle buttons supporting single or multiple selections.
+- `src/components/ui/tooltip.tsx`: Tooltip display triggers and popover containers using Radix Tooltip.
+
+## Public interface
+- Conversation
+- ConversationContent
+- ConversationEmptyState
+- ConversationScrollButton
+- ConversationDownload
+- messagesToMarkdown
+- Message
+- MessageContent
+- MessageActions
+- MessageAction
+- MessageBranch
+- MessageBranchContent
+- MessageBranchSelector
+- MessageBranchPrevious
+- MessageBranchNext
+- PromptInputProvider
+- usePromptInputController
+- useProviderAttachments
+- Shimmer
+- ChatCta
+- PageHero
+- SiteFooter
+- SiteHeader
+- Accordion
+- AlertDialog
+- AspectRatio
+- Avatar
+- Badge
+- Breadcrumb
+- ButtonGroup
+- Button
+- Calendar
+- Card
+- Carousel
+- ChartContainer
+- Checkbox
+- Collapsible
+- Command
+- ContextMenu
+- Dialog
+- Drawer
+- DropdownMenu
+- Form
+- HoverCard
+- InputGroup
+- InputOTP
+- Input
+- Label
+- Menubar
+- MenubarMenu
+- MenubarTrigger
+- MenubarContent
+- MenubarItem
+- MenubarSeparator
+- MenubarLabel
+- MenubarCheckboxItem
+- MenubarRadioGroup
+- MenubarRadioItem
+- MenubarPortal
+- MenubarSubContent
+- MenubarSubTrigger
+- MenubarGroup
+- MenubarSub
+- MenubarShortcut
+- NavigationMenu
+- NavigationMenuList
+- NavigationMenuItem
+- NavigationMenuContent
+- NavigationMenuTrigger
+- NavigationMenuLink
+- NavigationMenuIndicator
+- NavigationMenuViewport
+- navigationMenuTriggerStyle
+- Pagination
+- PaginationContent
+- PaginationLink
+- PaginationItem
+- PaginationPrevious
+- PaginationNext
+- PaginationEllipsis
+- Popover
+- PopoverTrigger
+- PopoverContent
+- PopoverAnchor
+- Progress
+- RadioGroup
+- RadioGroupItem
+- ResizablePanelGroup
+- ResizablePanel
+- ResizableHandle
+- ScrollArea
+- ScrollBar
+- Select
+- SelectGroup
+- SelectValue
+- SelectTrigger
+- SelectContent
+- SelectLabel
+- SelectItem
+- SelectSeparator
+- SelectScrollUpButton
+- SelectScrollDownButton
+- Separator
+- Sheet
+- SheetPortal
+- SheetOverlay
+- SheetTrigger
+- SheetClose
+- SheetContent
+- SheetHeader
+- SheetFooter
+- SheetTitle
+- SheetDescription
+- SidebarProvider
+- Sidebar
+- useSidebar
+- Skeleton
+- Slider
+- Toaster
+- Spinner
+- Switch
+- Table
+- TableHeader
+- TableBody
+- TableFooter
+- TableHead
+- TableRow
+- TableCell
+- TableCaption
+- Tabs
+- TabsList
+- TabsTrigger
+- TabsContent
+- Textarea
+- ToggleGroup
+- ToggleGroupItem
+- Toggle
+- toggleVariants
+- Tooltip
+- TooltipTrigger
+- TooltipContent
+- TooltipProvider
+
+## Dependencies
+- @radix-ui/react-*
+- @streamdown/cjk
+- @streamdown/code
+- @streamdown/math
+- @streamdown/mermaid
+- @tanstack/react-query
+- @tanstack/react-router
+- ai
+- class-variance-authority
+- cmdk
+- embla-carousel-react
+- input-otp
+- lucide-react
+- motion/react
+- nanoid
+- react-day-picker
+- react-hook-form
+- recharts
+- streamdown
+- use-stick-to-bottom
+- vaul
+- @/lib/utils
+- @/integrations/supabase/client
+- @/hooks/use-session
+- @radix-ui/react-dialog
+- @radix-ui/react-label
+- @radix-ui/react-menubar
+- @radix-ui/react-navigation-menu
+- @radix-ui/react-popover
+- @radix-ui/react-progress
+- @radix-ui/react-radio-group
+- @radix-ui/react-scroll-area
+- @radix-ui/react-select
+- @radix-ui/react-separator
+- @radix-ui/react-slider
+- @radix-ui/react-slot
+- @radix-ui/react-switch
+- @radix-ui/react-tabs
+- @radix-ui/react-toggle
+- @radix-ui/react-toggle-group
+- @radix-ui/react-tooltip
+- react-resizable-panels
+- sonner
+- @/hooks/use-mobile
+- @/components/ui/button
+- @/components/ui/input
+
+## AI touchpoints [AI]
+- `src/components/ai-elements/prompt-input.tsx`
+- `src/components/ai-elements/conversation.tsx`
+- `src/components/ai-elements/message.tsx`
+- `src/components/ai-elements/shimmer.tsx`
+- `src/components/chat-cta.tsx`
+
+## Open questions
+- _none_
