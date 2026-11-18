@@ -66,6 +66,7 @@ const phrases = [
   { da: "Hvor er…?", en: "Where is…?", say: "voor air" },
 ];
 
+// @uxid src/routes/people::PeoplePage
 function PeoplePage() {
   return (
     <>

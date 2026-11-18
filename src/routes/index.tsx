@@ -80,6 +80,7 @@ const sections = [
   },
 ];
 
+// @uxid src/routes/index::Index
 function Index() {
   return (
     <>
