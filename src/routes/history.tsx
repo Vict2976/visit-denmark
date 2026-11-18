@@ -39,6 +39,7 @@ const timeline = [
   { year: "2024", title: "A new king", body: "Queen Margrethe II abdicates after 52 years and her son becomes King Frederik X." },
 ];
 
+// @uxid src/routes/history::HistoryPage
 function HistoryPage() {
   return (
     <>
