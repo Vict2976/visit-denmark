@@ -23,7 +23,6 @@ export const Route = createFileRoute("/cities/")({
   component: CitiesPage,
 });
 
-// @uxid src/routes/cities.index::CitiesPage
 function CitiesPage() {
   return (
     <>

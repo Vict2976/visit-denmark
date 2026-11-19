@@ -16,7 +16,6 @@ const nav = [
   { to: "/planner", label: "Trip planner" },
 ] as const;
 
-// @uxid src/components/site-header::SiteHeader
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const { user } = useSession();
@@ -33,7 +32,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link /* @uxid src/components/site-header::SiteHeader.link */ to="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
+        <Link to="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
           <img src={logo} alt="" width={32} height={32} className="size-8" />
           <span className="font-display text-lg font-semibold tracking-tight">
             Hej <span className="text-primary">Copenhagen</span>
@@ -55,7 +54,7 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2">
           {user && (
-            <Button /* @uxid src/components/site-header::SiteHeader.button */
+            <Button
               variant="ghost"
               size="sm"
               onClick={handleSignOut}
@@ -69,7 +68,7 @@ export function SiteHeader() {
               <MessageCircle /> Ask AI
             </Link>
           </Button>
-          <Button /* @uxid src/components/site-header::SiteHeader.button-2 */
+          <Button
             variant="ghost"
             size="icon"
             className="md:hidden"
@@ -84,7 +83,7 @@ export function SiteHeader() {
       {open && (
         <nav className="border-t border-border bg-background px-4 py-3 md:hidden">
           {nav.map((item) => (
-            <Link /* @uxid src/components/site-header::SiteHeader.link-2 */
+            <Link
               key={item.to}
               to={item.to}
               onClick={() => setOpen(false)}
@@ -95,7 +94,7 @@ export function SiteHeader() {
             </Link>
           ))}
           {user && (
-            <button /* @uxid src/components/site-header::SiteHeader.button-3 */
+            <button
               type="button"
               onClick={() => {
                 setOpen(false);

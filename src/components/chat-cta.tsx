@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// @uxid src/components/chat-cta::ChatCta
 export function ChatCta({ question }: { question?: string }) {
   return (
     <section className="mx-auto mt-20 max-w-6xl px-4 sm:px-6">

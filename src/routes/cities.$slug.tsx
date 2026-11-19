@@ -37,7 +37,6 @@ export const Route = createFileRoute("/cities/$slug")({
   component: CityPage,
 });
 
-// @uxid src/routes/cities.$slug::CityPage
 function CityPage() {
   const { city } = Route.useLoaderData();
   const others = cities.filter((c) => c.slug !== city.slug).slice(0, 3);
