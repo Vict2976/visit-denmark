@@ -34,6 +34,7 @@ export async function retrieve(query: string, k = 5): Promise<KnowledgeChunk[]> 
 }
 
 export function formatContext(chunks: KnowledgeChunk[]): string {
+  // @uxid src/lib/rag.server::formatContext.prompt
   if (!chunks.length) return "No matching pages on the Hej Copenhagen site.";
   return chunks.map((c, i) => `[${i + 1}] ${c.title} (page ${c.url})\n${c.text}`).join("\n\n");
 }

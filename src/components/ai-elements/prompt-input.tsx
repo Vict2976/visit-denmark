@@ -245,6 +245,7 @@ export type PromptInputProviderProps = PropsWithChildren<{
  * Optional global provider that lifts PromptInput state outside of PromptInput.
  * If you don't use it, PromptInput stays fully self-managed.
  */
+// @uxid src/components/ai-elements/prompt-input::PromptInputProvider
 export const PromptInputProvider = ({
   initialInput: initialTextInput = "",
   children,
@@ -414,6 +415,7 @@ export type PromptInputActionAddAttachmentsProps = ComponentProps<
   label?: string;
 };
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputActionAddAttachments
 export const PromptInputActionAddAttachments = ({
   label = "Add photos or files",
   ...props
@@ -429,7 +431,7 @@ export const PromptInputActionAddAttachments = ({
   );
 
   return (
-    <DropdownMenuItem {...props} onSelect={handleSelect}>
+    <DropdownMenuItem /* @uxid src/components/ai-elements/prompt-input::PromptInputActionAddAttachments.dropdownmenuitem */ {...props} onSelect={handleSelect}>
       <ImageIcon className="mr-2 size-4" /> {label}
     </DropdownMenuItem>
   );
@@ -441,6 +443,7 @@ export type PromptInputActionAddScreenshotProps = ComponentProps<
   label?: string;
 };
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputActionAddScreenshot
 export const PromptInputActionAddScreenshot = ({
   label = "Take screenshot",
   onSelect,
@@ -474,7 +477,7 @@ export const PromptInputActionAddScreenshot = ({
   );
 
   return (
-    <DropdownMenuItem {...props} onSelect={handleSelect}>
+    <DropdownMenuItem /* @uxid src/components/ai-elements/prompt-input::PromptInputActionAddScreenshot.dropdownmenuitem */ {...props} onSelect={handleSelect}>
       <Monitor className="mr-2 size-4" />
       {label}
     </DropdownMenuItem>
@@ -511,6 +514,7 @@ export type PromptInputProps = Omit<
   ) => void | Promise<void>;
 };
 
+// @uxid src/components/ai-elements/prompt-input::PromptInput
 export const PromptInput = ({
   className,
   accept,
@@ -905,7 +909,7 @@ export const PromptInput = ({
   // Render with or without local provider
   const inner = (
     <>
-      <input
+      <input /* @uxid src/components/ai-elements/prompt-input::PromptInput.file */
         accept={accept}
         aria-label="Upload files"
         className="hidden"
@@ -915,7 +919,7 @@ export const PromptInput = ({
         title="Upload files"
         type="file"
       />
-      <form
+      <form /* @uxid src/components/ai-elements/prompt-input::PromptInput.form */
         className={cn("w-full", className)}
         onSubmit={handleSubmit}
         ref={formRef}
@@ -942,6 +946,7 @@ export const PromptInput = ({
 
 export type PromptInputBodyProps = HTMLAttributes<HTMLDivElement>;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputBody
 export const PromptInputBody = ({
   className,
   ...props
@@ -953,6 +958,7 @@ export type PromptInputTextareaProps = ComponentProps<
   typeof InputGroupTextarea
 >;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputTextarea
 export const PromptInputTextarea = ({
   onChange,
   onKeyDown,
@@ -1054,7 +1060,7 @@ export const PromptInputTextarea = ({
       };
 
   return (
-    <InputGroupTextarea
+    <InputGroupTextarea /* @uxid src/components/ai-elements/prompt-input::PromptInputTextarea.inputgrouptextarea */
       className={cn("field-sizing-content max-h-48 min-h-16", className)}
       name="message"
       onCompositionEnd={handleCompositionEnd}
@@ -1073,6 +1079,7 @@ export type PromptInputHeaderProps = Omit<
   "align"
 >;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputHeader
 export const PromptInputHeader = ({
   className,
   ...props
@@ -1089,6 +1096,7 @@ export type PromptInputFooterProps = Omit<
   "align"
 >;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputFooter
 export const PromptInputFooter = ({
   className,
   ...props
@@ -1102,6 +1110,7 @@ export const PromptInputFooter = ({
 
 export type PromptInputToolsProps = HTMLAttributes<HTMLDivElement>;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputTools
 export const PromptInputTools = ({
   className,
   ...props
@@ -1124,6 +1133,7 @@ export type PromptInputButtonProps = ComponentProps<typeof InputGroupButton> & {
   tooltip?: PromptInputButtonTooltip;
 };
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputButton
 export const PromptInputButton = ({
   variant = "ghost",
   className,
@@ -1167,12 +1177,14 @@ export const PromptInputButton = ({
 };
 
 export type PromptInputActionMenuProps = ComponentProps<typeof DropdownMenu>;
+// @uxid src/components/ai-elements/prompt-input::PromptInputActionMenu
 export const PromptInputActionMenu = (props: PromptInputActionMenuProps) => (
   <DropdownMenu {...props} />
 );
 
 export type PromptInputActionMenuTriggerProps = PromptInputButtonProps;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputActionMenuTrigger
 export const PromptInputActionMenuTrigger = ({
   className,
   children,
@@ -1188,6 +1200,7 @@ export const PromptInputActionMenuTrigger = ({
 export type PromptInputActionMenuContentProps = ComponentProps<
   typeof DropdownMenuContent
 >;
+// @uxid src/components/ai-elements/prompt-input::PromptInputActionMenuContent
 export const PromptInputActionMenuContent = ({
   className,
   ...props
@@ -1198,6 +1211,7 @@ export const PromptInputActionMenuContent = ({
 export type PromptInputActionMenuItemProps = ComponentProps<
   typeof DropdownMenuItem
 >;
+// @uxid src/components/ai-elements/prompt-input::PromptInputActionMenuItem
 export const PromptInputActionMenuItem = ({
   className,
   ...props
@@ -1213,6 +1227,7 @@ export type PromptInputSubmitProps = ComponentProps<typeof InputGroupButton> & {
   onStop?: () => void;
 };
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputSubmit
 export const PromptInputSubmit = ({
   className,
   variant = "default",
@@ -1248,7 +1263,7 @@ export const PromptInputSubmit = ({
   );
 
   return (
-    <InputGroupButton
+    <InputGroupButton /* @uxid src/components/ai-elements/prompt-input::PromptInputSubmit.inputgroupbutton */
       aria-label={isGenerating ? "Stop" : "Submit"}
       className={cn(className)}
       onClick={handleClick}
@@ -1264,6 +1279,7 @@ export const PromptInputSubmit = ({
 
 export type PromptInputSelectProps = ComponentProps<typeof Select>;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputSelect
 export const PromptInputSelect = (props: PromptInputSelectProps) => (
   <Select {...props} />
 );
@@ -1272,6 +1288,7 @@ export type PromptInputSelectTriggerProps = ComponentProps<
   typeof SelectTrigger
 >;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputSelectTrigger
 export const PromptInputSelectTrigger = ({
   className,
   ...props
@@ -1290,6 +1307,7 @@ export type PromptInputSelectContentProps = ComponentProps<
   typeof SelectContent
 >;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputSelectContent
 export const PromptInputSelectContent = ({
   className,
   ...props
@@ -1299,6 +1317,7 @@ export const PromptInputSelectContent = ({
 
 export type PromptInputSelectItemProps = ComponentProps<typeof SelectItem>;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputSelectItem
 export const PromptInputSelectItem = ({
   className,
   ...props
@@ -1308,6 +1327,7 @@ export const PromptInputSelectItem = ({
 
 export type PromptInputSelectValueProps = ComponentProps<typeof SelectValue>;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputSelectValue
 export const PromptInputSelectValue = ({
   className,
   ...props
@@ -1317,6 +1337,7 @@ export const PromptInputSelectValue = ({
 
 export type PromptInputHoverCardProps = ComponentProps<typeof HoverCard>;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputHoverCard
 export const PromptInputHoverCard = ({
   openDelay = 0,
   closeDelay = 0,
@@ -1329,6 +1350,7 @@ export type PromptInputHoverCardTriggerProps = ComponentProps<
   typeof HoverCardTrigger
 >;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputHoverCardTrigger
 export const PromptInputHoverCardTrigger = (
   props: PromptInputHoverCardTriggerProps
 ) => <HoverCardTrigger {...props} />;
@@ -1337,6 +1359,7 @@ export type PromptInputHoverCardContentProps = ComponentProps<
   typeof HoverCardContent
 >;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputHoverCardContent
 export const PromptInputHoverCardContent = ({
   align = "start",
   ...props
@@ -1346,6 +1369,7 @@ export const PromptInputHoverCardContent = ({
 
 export type PromptInputTabsListProps = HTMLAttributes<HTMLDivElement>;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputTabsList
 export const PromptInputTabsList = ({
   className,
   ...props
@@ -1353,6 +1377,7 @@ export const PromptInputTabsList = ({
 
 export type PromptInputTabProps = HTMLAttributes<HTMLDivElement>;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputTab
 export const PromptInputTab = ({
   className,
   ...props
@@ -1360,6 +1385,7 @@ export const PromptInputTab = ({
 
 export type PromptInputTabLabelProps = HTMLAttributes<HTMLHeadingElement>;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputTabLabel
 export const PromptInputTabLabel = ({
   className,
   ...props
@@ -1377,6 +1403,7 @@ export const PromptInputTabLabel = ({
 
 export type PromptInputTabBodyProps = HTMLAttributes<HTMLDivElement>;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputTabBody
 export const PromptInputTabBody = ({
   className,
   ...props
@@ -1386,6 +1413,7 @@ export const PromptInputTabBody = ({
 
 export type PromptInputTabItemProps = HTMLAttributes<HTMLDivElement>;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputTabItem
 export const PromptInputTabItem = ({
   className,
   ...props
@@ -1401,6 +1429,7 @@ export const PromptInputTabItem = ({
 
 export type PromptInputCommandProps = ComponentProps<typeof Command>;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputCommand
 export const PromptInputCommand = ({
   className,
   ...props
@@ -1408,6 +1437,7 @@ export const PromptInputCommand = ({
 
 export type PromptInputCommandInputProps = ComponentProps<typeof CommandInput>;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputCommandInput
 export const PromptInputCommandInput = ({
   className,
   ...props
@@ -1417,6 +1447,7 @@ export const PromptInputCommandInput = ({
 
 export type PromptInputCommandListProps = ComponentProps<typeof CommandList>;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputCommandList
 export const PromptInputCommandList = ({
   className,
   ...props
@@ -1426,6 +1457,7 @@ export const PromptInputCommandList = ({
 
 export type PromptInputCommandEmptyProps = ComponentProps<typeof CommandEmpty>;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputCommandEmpty
 export const PromptInputCommandEmpty = ({
   className,
   ...props
@@ -1435,6 +1467,7 @@ export const PromptInputCommandEmpty = ({
 
 export type PromptInputCommandGroupProps = ComponentProps<typeof CommandGroup>;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputCommandGroup
 export const PromptInputCommandGroup = ({
   className,
   ...props
@@ -1444,6 +1477,7 @@ export const PromptInputCommandGroup = ({
 
 export type PromptInputCommandItemProps = ComponentProps<typeof CommandItem>;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputCommandItem
 export const PromptInputCommandItem = ({
   className,
   ...props
@@ -1455,6 +1489,7 @@ export type PromptInputCommandSeparatorProps = ComponentProps<
   typeof CommandSeparator
 >;
 
+// @uxid src/components/ai-elements/prompt-input::PromptInputCommandSeparator
 export const PromptInputCommandSeparator = ({
   className,
   ...props
