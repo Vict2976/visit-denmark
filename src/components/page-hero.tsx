@@ -9,6 +9,7 @@ interface PageHeroProps {
 }
 
 /** Shared top-of-page header. With an image it becomes a photo banner. */
+// @uxid src/components/page-hero::PageHero
 export function PageHero({ eyebrow, title, intro, image, children }: PageHeroProps) {
   if (image) {
     return (
