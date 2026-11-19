@@ -6110,10 +6110,10 @@
       "id": "RootShell",
       "kind": "component",
       "name": "RootShell",
-      "description": "Function component. Props: children. Renders: html, head, body, HeadContent, Scripts.",
+      "description": "Function component. Props: children. Renders: html, head, body, script, HeadContent, Scripts.",
       "file": "src/routes/__root.tsx",
       "startLine": 113,
-      "endLine": 125,
+      "endLine": 126,
       "props": [
         "children"
       ]
@@ -6124,8 +6124,8 @@
       "name": "RootComponent",
       "description": "Function component. Hooks: useRouteContext, useRouterState. Renders: div, main, QueryClientProvider, SiteHeader, Outlet, SiteFooter.",
       "file": "src/routes/__root.tsx",
-      "startLine": 127,
-      "endLine": 144,
+      "startLine": 128,
+      "endLine": 145,
       "hooks": [
         "useRouteContext",
         "useRouterState"
@@ -6165,7 +6165,7 @@
       "description": "Source module: 4 top-level artifacts.",
       "file": "src/routes/__root.tsx",
       "startLine": 1,
-      "endLine": 145
+      "endLine": 146
     },
     {
       "id": "ChatPage",
