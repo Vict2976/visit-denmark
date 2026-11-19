@@ -16,7 +16,6 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
-// @uxid src/routes/__root::NotFoundComponent
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -39,7 +38,6 @@ function NotFoundComponent() {
   );
 }
 
-// @uxid src/routes/__root::ErrorComponent
 function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
@@ -57,7 +55,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button /* @uxid src/routes/__root::ErrorComponent.button */
+          <button
             onClick={() => {
               router.invalidate();
               reset();
@@ -66,7 +64,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
           >
             Try again
           </button>
-          <a /* @uxid src/routes/__root::ErrorComponent.link */
+          <a
             href="/"
             className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
@@ -112,7 +110,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
-// @uxid src/routes/__root::RootShell
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
@@ -122,13 +119,11 @@ function RootShell({ children }: { children: ReactNode }) {
       <body>
         {children}
         <Scripts />
-        <script src="https://dev.runeva.ai/eval-bot.js" data-eval-key="evalpk_cXM9qZGVmnuUIR_BaadHMSRimBliEpdb" data-eval-endpoint="https://dev.runeva.ai" defer></script>
       </body>
     </html>
   );
 }
 
-// @uxid src/routes/__root::RootComponent
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (s) => s.location.pathname });

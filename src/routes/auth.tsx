@@ -36,7 +36,6 @@ function safePath(value: string | undefined | null): string {
   }
 }
 
-// @uxid src/routes/auth::AuthPage
 function AuthPage() {
   const { redirect } = Route.useSearch();
   const navigate = useNavigate();
@@ -94,8 +93,8 @@ function AuthPage() {
         Sign in to chat with the AI travel guide. Your conversation is saved so you can pick it up on any device.
       </p>
 
-      <form /* @uxid src/routes/auth::AuthPage.form */ onSubmit={handleSubmit} className="mt-8 space-y-3">
-        <Input /* @uxid src/routes/auth::AuthPage.input */
+      <form onSubmit={handleSubmit} className="mt-8 space-y-3">
+        <Input
           type="email"
           required
           autoComplete="email"
@@ -105,7 +104,7 @@ function AuthPage() {
           onChange={(e) => setEmail(e.target.value)}
           className="h-12"
         />
-        <Input /* @uxid src/routes/auth::AuthPage.input-2 */
+        <Input
           type="password"
           required
           minLength={6}
@@ -125,7 +124,7 @@ function AuthPage() {
 
       <p className="mt-6 text-center text-sm text-muted-foreground">
         {mode === "signin" ? "New here?" : "Already have an account?"}{" "}
-        <button /* @uxid src/routes/auth::AuthPage.button */
+        <button
           type="button"
           className="font-semibold text-primary hover:underline"
           onClick={() => {
