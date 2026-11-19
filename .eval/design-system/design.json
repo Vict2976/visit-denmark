@@ -11227,7 +11227,7 @@
     {
       "name": "RootComponent",
       "file": "src/routes/__root.tsx",
-      "line": 131,
+      "line": 132,
       "base": null,
       "axes": [],
       "states": [

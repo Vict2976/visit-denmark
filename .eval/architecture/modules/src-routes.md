@@ -1,41 +1,41 @@
 # Module: src/routes [AI]
 
-Application routing layer for Hej Copenhagen using TanStack Router and TanStack Start, providing static travel guide pages (visa, currency, cities, culture, history), authenticated views for AI chat and trip planning, client auth flows, root layout with global context, and an API chat endpoint handler.
+Defines the application's page routes, layout hierarchy, navigation, and API endpoints using TanStack Router and TanStack Start, covering static informational travel guides, user authentication, and interactive AI travel planning and chat features.
 
 ## Key files
-- `src/routes/__root.tsx`: Root application layout route defining global metadata, fonts, styles, React Query provider, header/footer layout, error boundaries, and 404 handlers.
-- `src/routes/_authenticated/route.tsx`: Layout route enforcing client-side authentication check and redirecting unauthenticated users to /auth.
-- `src/routes/_authenticated/chat.tsx`: Interactive chat interface for the Hej Guide AI assistant with message streaming and Supabase conversation history.
-- `src/routes/_authenticated/planner.tsx`: AI trip planner interface that generates personalized Denmark itineraries via TanStack Start server functions.
-- `src/routes/api/chat.ts`: Server route endpoint handling POST requests to stream AI chat completions from the server-side chat handler.
-- `src/routes/auth.tsx`: User authentication page supporting sign-in, sign-up, and redirection handling using Supabase Auth.
-- `src/routes/cities.$slug.tsx`: Dynamic city guide page loading detailed city information, sights, tips, and related navigation.
-- `src/routes/cities.index.tsx`: Overview page displaying list of major Danish cities.
-- `src/routes/currency.tsx`: Danish krone guide and interactive live/fallback currency converter page.
-- `src/routes/history.tsx`: Visual timeline page detailing Danish history from the Viking Age to modern day.
-- `src/routes/index.tsx`: Main landing page showcasing core guide sections, quick facts, and entry points to AI tools.
-- `src/routes/people.tsx`: Cultural guide page covering Danish lifestyle, looks, etiquette, hygge, and basic vocabulary.
-- `src/routes/visa.tsx`: Travel advisory and guide for Schengen visa requirements, 90/180 rules, and EES/ETIAS systems.
+- `src/routes/__root.tsx`: Root application layout setting up QueryClientProvider, HTML shell, meta tags, global error/404 components, SiteHeader, and SiteFooter.
+- `src/routes/_authenticated/route.tsx`: Protected layout route enforcing client-side Supabase session checks before loading nested authenticated routes.
+- `src/routes/_authenticated/chat.tsx`: Interactive AI chat interface for conversations with the Hej Guide travel assistant, streaming responses and persisting message history via Supabase.
+- `src/routes/_authenticated/planner.tsx`: Personalized trip itinerary planner calling server function createTripPlan to generate and manage custom travel plans.
+- `src/routes/api/chat.ts`: TanStack Start server route POST handler dispatching chat requests to the server-side chat handler.
+- `src/routes/auth.tsx`: Authentication page handling user sign-in and account registration via Supabase Auth with redirect management.
+- `src/routes/cities.$slug.tsx`: Dynamic city guide page loading and displaying sights, local tips, and travel times for selected Danish cities.
+- `src/routes/cities.index.tsx`: Directory page listing Danish destination cities with navigation links to individual city profiles.
+- `src/routes/currency.tsx`: Danish krone guide and interactive currency converter with live exchange rate fetching.
+- `src/routes/index.tsx`: Landing home page providing quick facts, travel topic cards, and entry points to AI tools and guide sections.
+- `src/routes/history.tsx`: Visual timeline page covering Danish history from the Viking Age to modern Denmark.
+- `src/routes/people.tsx`: Culture, etiquette, style guide, and common phrasebook for visitors to Denmark.
+- `src/routes/visa.tsx`: Visa and entry requirements guide detailing Schengen rules, EES, and ETIAS procedures.
 
 ## Public interface
-- Route: src/routes/__root.tsx (root router context)
-- Route: src/routes/_authenticated/route.tsx (auth layout)
-- Route: src/routes/_authenticated/chat.tsx (/chat)
-- Route: src/routes/_authenticated/planner.tsx (/planner)
-- Route: src/routes/api/chat.ts (/api/chat POST)
-- Route: src/routes/auth.tsx (/auth)
-- Route: src/routes/cities.$slug.tsx (/cities/$slug)
-- Route: src/routes/cities.index.tsx (/cities)
-- Route: src/routes/currency.tsx (/currency)
-- Route: src/routes/history.tsx (/history)
-- Route: src/routes/index.tsx (/)
-- Route: src/routes/people.tsx (/people)
-- Route: src/routes/visa.tsx (/visa)
+- Route (from src/routes/__root.tsx)
+- Route (from src/routes/_authenticated/route.tsx)
+- Route (from src/routes/_authenticated/chat.tsx)
+- Route (from src/routes/_authenticated/planner.tsx)
+- Route (from src/routes/api/chat.ts)
+- Route (from src/routes/auth.tsx)
+- Route (from src/routes/cities.$slug.tsx)
+- Route (from src/routes/cities.index.tsx)
+- Route (from src/routes/currency.tsx)
+- Route (from src/routes/history.tsx)
+- Route (from src/routes/index.tsx)
+- Route (from src/routes/people.tsx)
+- Route (from src/routes/visa.tsx)
 
 ## Dependencies
 - @tanstack/react-router
-- @tanstack/react-start
 - @tanstack/react-query
+- @tanstack/react-start
 - ai
 - lucide-react
 - sonner
@@ -44,25 +44,25 @@ Application routing layer for Hej Copenhagen using TanStack Router and TanStack 
 - @/lib/cities
 - @/lib/currency
 - @/lib/knowledge
-- @/lib/lovable-error-reporting
 - @/lib/planner.functions
 - @/lib/chat.server
+- @/lib/lovable-error-reporting
+- @/components/site-header
+- @/components/site-footer
+- @/components/page-hero
+- @/components/chat-cta
 - @/components/ai-elements/conversation
 - @/components/ai-elements/message
 - @/components/ai-elements/prompt-input
 - @/components/ai-elements/shimmer
-- @/components/chat-cta
-- @/components/page-hero
-- @/components/site-footer
-- @/components/site-header
 - @/components/ui/button
 - @/components/ui/input
 - @/components/ui/select
 
 ## AI touchpoints [AI]
 - `src/routes/_authenticated/chat.tsx`
-- `src/routes/api/chat.ts`
 - `src/routes/_authenticated/planner.tsx`
+- `src/routes/api/chat.ts`
 
 ## Open questions
 - _none_
