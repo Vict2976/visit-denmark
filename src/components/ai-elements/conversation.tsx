@@ -10,9 +10,8 @@ import { StickToBottom, useStickToBottomContext } from "use-stick-to-bottom";
 
 export type ConversationProps = ComponentProps<typeof StickToBottom>;
 
-// @uxid src/components/ai-elements/conversation::Conversation
 export const Conversation = ({ className, ...props }: ConversationProps) => (
-  <StickToBottom /* @uxid src/components/ai-elements/conversation::Conversation.sticktobottom */
+  <StickToBottom
     className={cn("relative flex-1 overflow-y-hidden", className)}
     initial="smooth"
     resize="smooth"
@@ -25,7 +24,6 @@ export type ConversationContentProps = ComponentProps<
   typeof StickToBottom.Content
 >;
 
-// @uxid src/components/ai-elements/conversation::ConversationContent
 export const ConversationContent = ({
   className,
   ...props
@@ -42,7 +40,6 @@ export type ConversationEmptyStateProps = ComponentProps<"div"> & {
   icon?: React.ReactNode;
 };
 
-// @uxid src/components/ai-elements/conversation::ConversationEmptyState
 export const ConversationEmptyState = ({
   className,
   title = "No messages yet",
@@ -74,7 +71,6 @@ export const ConversationEmptyState = ({
 
 export type ConversationScrollButtonProps = ComponentProps<typeof Button>;
 
-// @uxid src/components/ai-elements/conversation::ConversationScrollButton
 export const ConversationScrollButton = ({
   className,
   ...props
@@ -87,7 +83,7 @@ export const ConversationScrollButton = ({
 
   return (
     !isAtBottom && (
-      <Button /* @uxid src/components/ai-elements/conversation::ConversationScrollButton.button */
+      <Button
         className={cn(
           "absolute bottom-4 left-[50%] translate-x-[-50%] rounded-full dark:bg-background dark:hover:bg-muted",
           className
@@ -133,7 +129,6 @@ export const messagesToMarkdown = (
   ) => string = defaultFormatMessage
 ): string => messages.map((msg, i) => formatMessage(msg, i)).join("\n\n");
 
-// @uxid src/components/ai-elements/conversation::ConversationDownload
 export const ConversationDownload = ({
   messages,
   filename = "conversation.md",
@@ -156,7 +151,7 @@ export const ConversationDownload = ({
   }, [messages, filename, formatMessage]);
 
   return (
-    <Button /* @uxid src/components/ai-elements/conversation::ConversationDownload.button */
+    <Button
       className={cn(
         "absolute top-4 right-4 rounded-full dark:bg-background dark:hover:bg-muted",
         className

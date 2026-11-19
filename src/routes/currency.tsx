@@ -48,7 +48,6 @@ const examples = [
   { item: "Tivoli entry", price: 185 },
 ];
 
-// @uxid src/routes/currency::CurrencyPage
 function CurrencyPage() {
   const [rates, setRates] = useState<Record<string, number>>(fallbackDkkPerUnit);
   const [live, setLive] = useState(false);
@@ -98,21 +97,21 @@ function CurrencyPage() {
 
           <div className="mt-8 grid items-end gap-4 md:grid-cols-[1fr_auto_1fr]">
             <div className="space-y-2">
-              <label /* @uxid src/routes/currency::CurrencyPage.label */ htmlFor="amount" className="text-sm font-medium text-muted-foreground">
+              <label htmlFor="amount" className="text-sm font-medium text-muted-foreground">
                 Amount
               </label>
               <div className="flex gap-2">
-                <Input /* @uxid src/routes/currency::CurrencyPage.input */
+                <Input
                   id="amount"
                   inputMode="decimal"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   className="h-12 text-lg font-semibold"
                 />
-                <CurrencySelect /* @uxid src/routes/currency::CurrencyPage.currencyselect */ value={from} onChange={setFrom} label="From currency" />
+                <CurrencySelect value={from} onChange={setFrom} label="From currency" />
               </div>
             </div>
-            <Button /* @uxid src/routes/currency::CurrencyPage.button */
+            <Button
               variant="outline"
               size="icon-lg"
               className="mx-auto rounded-full"
@@ -130,7 +129,7 @@ function CurrencyPage() {
                 <div className="flex h-12 flex-1 items-center rounded-md bg-primary-soft px-3 text-lg font-semibold text-accent-foreground">
                   {formatMoney(result, to)}
                 </div>
-                <CurrencySelect /* @uxid src/routes/currency::CurrencyPage.currencyselect-2 */ value={to} onChange={setTo} label="To currency" />
+                <CurrencySelect value={to} onChange={setTo} label="To currency" />
               </div>
             </div>
           </div>
@@ -203,7 +202,6 @@ function CurrencyPage() {
   );
 }
 
-// @uxid src/routes/currency::CurrencySelect
 function CurrencySelect({
   value,
   onChange,
@@ -214,7 +212,7 @@ function CurrencySelect({
   label: string;
 }) {
   return (
-    <Select /* @uxid src/routes/currency::CurrencySelect.select */ value={value} onValueChange={onChange}>
+    <Select value={value} onValueChange={onChange}>
       <SelectTrigger aria-label={label} className="!h-12 w-32 font-semibold">
         <SelectValue />
       </SelectTrigger>

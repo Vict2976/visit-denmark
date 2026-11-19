@@ -34,7 +34,6 @@ interface Trip {
 const interestOptions = ["History", "Food", "Design", "Museums", "Nature", "Nightlife", "Kids", "Shopping"];
 const months = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-// @uxid src/routes/_authenticated/planner::PlannerPage
 function PlannerPage() {
   const planFn = useServerFn(createTripPlan);
   const [trips, setTrips] = useState<Trip[]>([]);
@@ -115,31 +114,31 @@ function PlannerPage() {
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[380px_1fr]">
         <div className="space-y-6">
-          <form /* @uxid src/routes/_authenticated/planner::PlannerPage.form */ onSubmit={submit} className="space-y-5 rounded-2xl border border-border bg-card p-6 shadow-card">
+          <form onSubmit={submit} className="space-y-5 rounded-2xl border border-border bg-card p-6 shadow-card">
             <div>
               <p className="text-sm font-semibold">Cities</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {cities.map((c) => (
-                  <button /* @uxid src/routes/_authenticated/planner::PlannerPage.button */ type="button" key={c.slug} className={chip(form.cities.includes(c.name))} onClick={() => toggle("cities", c.name)}>
+                  <button type="button" key={c.slug} className={chip(form.cities.includes(c.name))} onClick={() => toggle("cities", c.name)}>
                     {c.name}
                   </button>
                 ))}
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <label /* @uxid src/routes/_authenticated/planner::PlannerPage.label */ className="text-sm font-semibold">
+              <label className="text-sm font-semibold">
                 Days
-                <input /* @uxid src/routes/_authenticated/planner::PlannerPage.number */
+                <input
                   type="number" min={1} max={14} value={form.days}
                   onChange={(e) => setForm({ ...form, days: Math.min(14, Math.max(1, Number(e.target.value) || 1)) })}
                   className="mt-2 w-full rounded-lg border border-input bg-background px-3 py-2 font-normal"
                 />
               </label>
-              <label /* @uxid src/routes/_authenticated/planner::PlannerPage.label-2 */ className="text-sm font-semibold">
+              <label className="text-sm font-semibold">
                 Month
-                <select /* @uxid src/routes/_authenticated/planner::PlannerPage.select */ value={form.month} onChange={(e) => setForm({ ...form, month: e.target.value })}
+                <select value={form.month} onChange={(e) => setForm({ ...form, month: e.target.value })}
                   className="mt-2 w-full rounded-lg border border-input bg-background px-3 py-2 font-normal">
-                  {months.map((m) => <option /* @uxid src/routes/_authenticated/planner::PlannerPage.option */ key={m} value={m}>{m || "Any time"}</option>)}
+                  {months.map((m) => <option key={m} value={m}>{m || "Any time"}</option>)}
                 </select>
               </label>
             </div>
@@ -147,7 +146,7 @@ function PlannerPage() {
               <p className="text-sm font-semibold">Budget</p>
               <div className="mt-2 flex gap-2">
                 {(["budget", "mid-range", "luxury"] as const).map((b) => (
-                  <button /* @uxid src/routes/_authenticated/planner::PlannerPage.button-2 */ type="button" key={b} className={chip(form.budget === b)} onClick={() => setForm({ ...form, budget: b })}>
+                  <button type="button" key={b} className={chip(form.budget === b)} onClick={() => setForm({ ...form, budget: b })}>
                     {b}
                   </button>
                 ))}
@@ -157,15 +156,15 @@ function PlannerPage() {
               <p className="text-sm font-semibold">Interests</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {interestOptions.map((i) => (
-                  <button /* @uxid src/routes/_authenticated/planner::PlannerPage.button-3 */ type="button" key={i} className={chip(form.interests.includes(i))} onClick={() => toggle("interests", i)}>
+                  <button type="button" key={i} className={chip(form.interests.includes(i))} onClick={() => toggle("interests", i)}>
                     {i}
                   </button>
                 ))}
               </div>
             </div>
-            <label /* @uxid src/routes/_authenticated/planner::PlannerPage.label-3 */ className="block text-sm font-semibold">
+            <label className="block text-sm font-semibold">
               Anything else?
-              <textarea /* @uxid src/routes/_authenticated/planner::PlannerPage.textarea */ value={form.notes} maxLength={500} rows={3} placeholder="e.g. travelling with a toddler, vegetarian, arriving by ferry"
+              <textarea value={form.notes} maxLength={500} rows={3} placeholder="e.g. travelling with a toddler, vegetarian, arriving by ferry"
                 onChange={(e) => setForm({ ...form, notes: e.target.value })}
                 className="mt-2 w-full rounded-lg border border-input bg-background px-3 py-2 font-normal" />
             </label>
@@ -180,11 +179,11 @@ function PlannerPage() {
               <ul className="mt-2 space-y-2">
                 {trips.map((t) => (
                   <li key={t.id} className={`flex items-center justify-between gap-2 rounded-xl border px-4 py-3 ${t.id === active ? "border-primary bg-primary-soft" : "border-border bg-card"}`}>
-                    <button /* @uxid src/routes/_authenticated/planner::PlannerPage.button-4 */ className="text-left text-sm font-medium" onClick={() => setActive(t.id)}>
+                    <button className="text-left text-sm font-medium" onClick={() => setActive(t.id)}>
                       {t.title}
                       <span className="block text-xs font-normal text-muted-foreground">{new Date(t.created_at).toLocaleDateString()}</span>
                     </button>
-                    <Button /* @uxid src/routes/_authenticated/planner::PlannerPage.button-5 */ variant="ghost" size="icon-sm" aria-label="Delete trip" onClick={() => remove(t.id)}><Trash2 /></Button>
+                    <Button variant="ghost" size="icon-sm" aria-label="Delete trip" onClick={() => remove(t.id)}><Trash2 /></Button>
                   </li>
                 ))}
               </ul>
@@ -231,7 +230,7 @@ function PlannerPage() {
                 <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                   <BookOpen className="size-3.5" /> Based on:
                   {trip.sources.map((s) => (
-                    <a /* @uxid src/routes/_authenticated/planner::PlannerPage.link */ key={s.url} href={s.url} className="rounded-full border border-border bg-card px-2.5 py-1 font-medium text-foreground hover:text-primary">{s.title}</a>
+                    <a key={s.url} href={s.url} className="rounded-full border border-border bg-card px-2.5 py-1 font-medium text-foreground hover:text-primary">{s.title}</a>
                   ))}
                 </div>
               )}
