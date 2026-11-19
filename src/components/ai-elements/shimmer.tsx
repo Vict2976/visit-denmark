@@ -31,6 +31,7 @@ export interface TextShimmerProps {
   spread?: number;
 }
 
+// @uxid src/components/ai-elements/shimmer::ShimmerComponent
 const ShimmerComponent = ({
   children,
   as: Component = "p",
