@@ -2,7 +2,7 @@
 
 Conventions backed by **≥2** real, verbatim code examples. Anything with fewer is omitted below.
 
-## Tooling config files are ESM modules that default-export a typed config object built with the tool's own `defineConfig`/`config` helper (drizzle-kit, Vite, Vitest, typescript-eslint).
+## Tooling config files use a default export produced by the tool's `defineConfig`/`config` helper rather than raw objects.
 
 - `drizzle.config.ts`:
 
@@ -28,90 +28,12 @@ Conventions backed by **≥2** real, verbatim code examples. Anything with fewer
   export default defineConfig({
   ```
 
-## Application-level components (layout, hero, CTAs) are written as named `export function` declarations with destructured, explicitly typed props rather than arrow functions or default exports.
-
-- `src/components/chat-cta.tsx`:
-
-  ```
-  export function ChatCta({ question }: { question?: string }) {
-  ```
-
-- `src/components/page-hero.tsx`:
-
-  ```
-  export function PageHero({ eyebrow, title, intro, image, children }: PageHeroProps) {
-  ```
-
-- `src/components/site-footer.tsx`:
-
-  ```
-  export function SiteFooter() {
-  ```
-
-- `src/components/site-header.tsx`:
-
-  ```
-  export function SiteHeader() {
-  ```
-
-## Declare component prop shapes as a dedicated `interface`/`type` immediately above the component, deriving from `ComponentProps`, `HTMLAttributes`, or the wrapped primitive's props rather than redefining DOM attributes.
-
-- `src/components/ai-elements/conversation.tsx`:
-
-  ```
-  export type ConversationProps = ComponentProps<typeof StickToBottom>;
-  ```
-
-- `src/components/ai-elements/message.tsx`:
-
-  ```
-  export type MessageProps = HTMLAttributes<HTMLDivElement> & {
-  ```
-
-- `src/components/page-hero.tsx`:
-
-  ```
-  interface PageHeroProps {
-  ```
-
-- `src/components/ui/badge.tsx`:
-
-  ```
-  export interface BadgeProps
-  ```
-
-- `src/components/ai-elements/shimmer.tsx`:
-
-  ```
-  type MotionHTMLProps = MotionProps & Record<string, unknown>;
-  ```
-
-## AI-element components are arrow functions that pull out `className` (and a few semantic props), merge it with `cn`, and spread the remaining `...props` onto the underlying element so callers can override styles and attributes.
-
-- `src/components/ai-elements/conversation.tsx`:
-
-  ```
-  export const Conversation = ({ className, ...props }: ConversationProps) => (
-  ```
-
-- `src/components/ai-elements/message.tsx`:
-
-  ```
-  export const Message = ({ className, from, ...props }: MessageProps) => (
-  ```
-
-## In `src/components/ui`, follow the shadcn pattern: alias Radix root/trigger primitives directly with a `const X = XPrimitive.Root` and wrap styled subparts in `React.forwardRef` with `ElementRef`/`ComponentPropsWithoutRef` generics.
+## Thin Radix wrappers alias the primitive's Root/Trigger directly to a named const, then export them at the bottom of the file.
 
 - `src/components/ui/accordion.tsx`:
 
   ```
   const Accordion = AccordionPrimitive.Root;
-  ```
-
-- `src/components/ui/accordion.tsx`:
-
-  ```
-  const AccordionItem = React.forwardRef<
   ```
 
 - `src/components/ui/alert-dialog.tsx`:
@@ -130,6 +52,26 @@ Conventions backed by **≥2** real, verbatim code examples. Anything with fewer
 
   ```
   const AspectRatio = AspectRatioPrimitive.Root;
+  ```
+
+- `src/components/ui/aspect-ratio.tsx`:
+
+  ```
+  export { AspectRatio };
+  ```
+
+## Styled UI primitives are built with `React.forwardRef` and typed via `React.ComponentPropsWithoutRef` / element types so refs and native props pass through.
+
+- `src/components/ui/accordion.tsx`:
+
+  ```
+  const AccordionItem = React.forwardRef<
+  ```
+
+- `src/components/ui/alert.tsx`:
+
+  ```
+  const Alert = React.forwardRef<
   ```
 
 - `src/components/ui/avatar.tsx`:
@@ -156,7 +98,7 @@ Conventions backed by **≥2** real, verbatim code examples. Anything with fewer
   const BreadcrumbList = React.forwardRef<HTMLOListElement, React.ComponentPropsWithoutRef<"ol">>(
   ```
 
-## Define style variants with class-variance-authority as a module-level `<name>Variants = cva(...)` constant, then consume it in the component and export the variants alongside the component.
+## Define visual variants with `cva` in a `<name>Variants` const next to the component and use it for class generation.
 
 - `src/components/ui/alert.tsx`:
 
@@ -176,27 +118,83 @@ Conventions backed by **≥2** real, verbatim code examples. Anything with fewer
   const buttonGroupVariants = cva(
   ```
 
-## UI primitive files export their components via a single grouped `export { ... }` statement at the bottom rather than inline exports.
+## Export a dedicated props type/interface alongside each component; destructure `className` and spread the remaining props onto the underlying element.
 
-- `src/components/ui/aspect-ratio.tsx`:
-
-  ```
-  export { AspectRatio };
-  ```
-
-- `src/components/ui/accordion.tsx`:
+- `src/components/ai-elements/conversation.tsx`:
 
   ```
-  const Accordion = AccordionPrimitive.Root;
+  export type ConversationProps = ComponentProps<typeof StickToBottom>;
   ```
 
-- `src/components/ui/aspect-ratio.tsx`:
+- `src/components/ai-elements/conversation.tsx`:
 
   ```
-  const AspectRatio = AspectRatioPrimitive.Root;
+  export const Conversation = ({ className, ...props }: ConversationProps) => (
   ```
 
-## Compose server-side cross-cutting concerns (error handling, CSRF, auth) as TanStack Start middleware created via `createMiddleware()`/`createCsrfMiddleware()` in `src/start.ts`, not inside individual routes.
+- `src/components/ai-elements/message.tsx`:
+
+  ```
+  export type MessageProps = HTMLAttributes<HTMLDivElement> & {
+  ```
+
+- `src/components/ai-elements/message.tsx`:
+
+  ```
+  export const Message = ({ className, from, ...props }: MessageProps) => (
+  ```
+
+- `src/components/page-hero.tsx`:
+
+  ```
+  interface PageHeroProps {
+  ```
+
+- `src/components/page-hero.tsx`:
+
+  ```
+  export function PageHero({ eyebrow, title, intro, image, children }: PageHeroProps) {
+  ```
+
+- `src/components/ui/badge.tsx`:
+
+  ```
+  export interface BadgeProps
+  ```
+
+## Site-level and composite components are plain named function exports (not default exports), optionally with inline destructured props.
+
+- `src/components/chat-cta.tsx`:
+
+  ```
+  export function ChatCta({ question }: { question?: string }) {
+  ```
+
+- `src/components/page-hero.tsx`:
+
+  ```
+  export function PageHero({ eyebrow, title, intro, image, children }: PageHeroProps) {
+  ```
+
+- `src/components/site-footer.tsx`:
+
+  ```
+  export function SiteFooter() {
+  ```
+
+- `src/components/site-header.tsx`:
+
+  ```
+  export function SiteHeader() {
+  ```
+
+- `src/components/ui/button-group.tsx`:
+
+  ```
+  function ButtonGroup({
+  ```
+
+## Compose TanStack Start server behavior from small named middleware constants (e.g. `createMiddleware`, `createCsrfMiddleware`) registered on the Start instance.
 
 - `src/start.ts`:
 
@@ -210,39 +208,21 @@ Conventions backed by **≥2** real, verbatim code examples. Anything with fewer
   const csrfMiddleware = createCsrfMiddleware({
   ```
 
-## Keep singletons and caches at module scope (QueryClient, motion component cache, static nav arrays) and expose a factory like `getRouter` for per-request construction instead of exporting pre-built mutable instances.
-
-- `src/router.tsx`:
-
-  ```
-  const queryClient = new QueryClient();
-  ```
-
-- `src/components/ai-elements/shimmer.tsx`:
-
-  ```
-  const motionComponentCache = new Map<
-  ```
-
-- `src/components/site-header.tsx`:
-
-  ```
-  const nav = [
-  ```
-
-- `src/router.tsx`:
-
-  ```
-  export const getRouter = () => {
-  ```
-
-## Write async helpers as explicitly typed functions returning `Promise<T>` (including nullable results), with local `type` declarations for shapes they return, to keep server entry and attachment utilities self-documenting.
+## Declare explicit TypeScript type aliases for internal structures instead of relying on inference, especially for server entries and motion/HTML prop unions.
 
 - `src/server.ts`:
 
   ```
   type ServerEntry = {
   ```
+
+- `src/components/ai-elements/shimmer.tsx`:
+
+  ```
+  type MotionHTMLProps = MotionProps & Record<string, unknown>;
+  ```
+
+## Async helpers are written as named functions/arrow consts with explicit `Promise<...>` return types.
 
 - `src/server.ts`:
 
@@ -254,10 +234,4 @@ Conventions backed by **≥2** real, verbatim code examples. Anything with fewer
 
   ```
   const convertBlobUrlToDataUrl = async (url: string): Promise<string | null> => {
-  ```
-
-- `src/components/ai-elements/prompt-input.tsx`:
-
-  ```
-  const response = await fetch(url);
   ```
