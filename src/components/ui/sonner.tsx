@@ -2,7 +2,6 @@ import { Toaster as Sonner } from "sonner";
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 
-// @uxid src/components/ui/sonner::Toaster
 const Toaster = ({ ...props }: ToasterProps) => {
   return (
     <Sonner

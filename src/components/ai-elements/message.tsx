@@ -34,7 +34,6 @@ export type MessageProps = HTMLAttributes<HTMLDivElement> & {
   from: UIMessage["role"];
 };
 
-// @uxid src/components/ai-elements/message::Message
 export const Message = ({ className, from, ...props }: MessageProps) => (
   <div
     className={cn(
@@ -48,7 +47,6 @@ export const Message = ({ className, from, ...props }: MessageProps) => (
 
 export type MessageContentProps = HTMLAttributes<HTMLDivElement>;
 
-// @uxid src/components/ai-elements/message::MessageContent
 export const MessageContent = ({
   children,
   className,
@@ -69,7 +67,6 @@ export const MessageContent = ({
 
 export type MessageActionsProps = ComponentProps<"div">;
 
-// @uxid src/components/ai-elements/message::MessageActions
 export const MessageActions = ({
   className,
   children,
@@ -85,7 +82,6 @@ export type MessageActionProps = ComponentProps<typeof Button> & {
   label?: string;
 };
 
-// @uxid src/components/ai-elements/message::MessageAction
 export const MessageAction = ({
   tooltip,
   children,
@@ -147,7 +143,6 @@ export type MessageBranchProps = HTMLAttributes<HTMLDivElement> & {
   onBranchChange?: (branchIndex: number) => void;
 };
 
-// @uxid src/components/ai-elements/message::MessageBranch
 export const MessageBranch = ({
   defaultBranch = 0,
   onBranchChange,
@@ -201,7 +196,6 @@ export const MessageBranch = ({
 
 export type MessageBranchContentProps = HTMLAttributes<HTMLDivElement>;
 
-// @uxid src/components/ai-elements/message::MessageBranchContent
 export const MessageBranchContent = ({
   children,
   ...props
@@ -235,7 +229,6 @@ export const MessageBranchContent = ({
 
 export type MessageBranchSelectorProps = ComponentProps<typeof ButtonGroup>;
 
-// @uxid src/components/ai-elements/message::MessageBranchSelector
 export const MessageBranchSelector = ({
   className,
   ...props
@@ -261,7 +254,6 @@ export const MessageBranchSelector = ({
 
 export type MessageBranchPreviousProps = ComponentProps<typeof Button>;
 
-// @uxid src/components/ai-elements/message::MessageBranchPrevious
 export const MessageBranchPrevious = ({
   children,
   ...props
@@ -269,7 +261,7 @@ export const MessageBranchPrevious = ({
   const { goToPrevious, totalBranches } = useMessageBranch();
 
   return (
-    <Button /* @uxid src/components/ai-elements/message::MessageBranchPrevious.button */
+    <Button
       aria-label="Previous branch"
       disabled={totalBranches <= 1}
       onClick={goToPrevious}
@@ -285,7 +277,6 @@ export const MessageBranchPrevious = ({
 
 export type MessageBranchNextProps = ComponentProps<typeof Button>;
 
-// @uxid src/components/ai-elements/message::MessageBranchNext
 export const MessageBranchNext = ({
   children,
   ...props
@@ -293,7 +284,7 @@ export const MessageBranchNext = ({
   const { goToNext, totalBranches } = useMessageBranch();
 
   return (
-    <Button /* @uxid src/components/ai-elements/message::MessageBranchNext.button */
+    <Button
       aria-label="Next branch"
       disabled={totalBranches <= 1}
       onClick={goToNext}
@@ -309,7 +300,6 @@ export const MessageBranchNext = ({
 
 export type MessageBranchPageProps = HTMLAttributes<HTMLSpanElement>;
 
-// @uxid src/components/ai-elements/message::MessageBranchPage
 export const MessageBranchPage = ({
   className,
   ...props
@@ -333,7 +323,6 @@ export type MessageResponseProps = ComponentProps<typeof Streamdown>;
 
 const streamdownPlugins = { cjk, code, math, mermaid };
 
-// @uxid src/components/ai-elements/message::MessageResponse
 export const MessageResponse = memo(
   ({ className, ...props }: MessageResponseProps) => (
     <Streamdown
@@ -354,7 +343,6 @@ MessageResponse.displayName = "MessageResponse";
 
 export type MessageToolbarProps = ComponentProps<"div">;
 
-// @uxid src/components/ai-elements/message::MessageToolbar
 export const MessageToolbar = ({
   className,
   children,
