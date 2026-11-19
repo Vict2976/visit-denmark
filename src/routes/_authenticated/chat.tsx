@@ -54,6 +54,7 @@ const suggestions = [
 
 const ERROR_MARKER = "[[ERROR]]";
 
+// @uxid src/routes/_authenticated/chat::ChatPage
 function ChatPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [status, setStatus] = useState<ChatStatus>("ready");
@@ -200,7 +201,7 @@ function ChatPage() {
           </div>
         </div>
         {messages.length > 0 && (
-          <Button variant="ghost" size="sm" className="rounded-full" onClick={startOver} disabled={busy}>
+          <Button /* @uxid src/routes/_authenticated/chat::ChatPage.button */ variant="ghost" size="sm" className="rounded-full" onClick={startOver} disabled={busy}>
             <RotateCcw /> Start over
           </Button>
         )}
@@ -217,7 +218,7 @@ function ChatPage() {
               </p>
               <div className="mt-8 grid w-full gap-2 sm:grid-cols-2">
                 {suggestions.map((s) => (
-                  <button
+                  <button /* @uxid src/routes/_authenticated/chat::ChatPage.button-2 */
                     key={s}
                     type="button"
                     onClick={() => void send(s)}
@@ -242,7 +243,7 @@ function ChatPage() {
                   <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                     <BookOpen className="size-3.5" /> Sources:
                     {m.sources.map((src) => (
-                      <a
+                      <a /* @uxid src/routes/_authenticated/chat::ChatPage.link */
                         key={src.url}
                         href={src.url}
                         className="rounded-full border border-border bg-card px-2.5 py-1 font-medium text-foreground hover:border-primary/50 hover:text-primary"
@@ -263,7 +264,7 @@ function ChatPage() {
             </Message>
           )}
           {error && (
-            <p role="alert" className="rounded-xl bg-primary-soft px-4 py-3 text-sm text-accent-foreground">
+            <p /* @uxid src/routes/_authenticated/chat::ChatPage.p */ role="alert" className="rounded-xl bg-primary-soft px-4 py-3 text-sm text-accent-foreground">
               {error}
             </p>
           )}
@@ -272,14 +273,14 @@ function ChatPage() {
       </Conversation>
 
       <div className="pb-4 pt-2">
-        <PromptInput onSubmit={handleSubmit} className="rounded-2xl bg-card shadow-card">
+        <PromptInput /* @uxid src/routes/_authenticated/chat::ChatPage.promptinput */ onSubmit={handleSubmit} className="rounded-2xl bg-card shadow-card">
           <PromptInputTextarea
             ref={textareaRef}
             autoFocus
             placeholder="Ask about visas, money, sights, food…"
           />
           <PromptInputFooter className="justify-end">
-            <PromptInputSubmit
+            <PromptInputSubmit /* @uxid src/routes/_authenticated/chat::ChatPage.promptinputsubmit */
               status={status}
               onStop={() => abortRef.current?.abort()}
               className="rounded-full"

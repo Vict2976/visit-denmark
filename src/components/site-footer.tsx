@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
+// @uxid src/components/site-footer::SiteFooter
 export function SiteFooter() {
   return (
     <footer className="mt-24 bg-gradient-red text-primary-foreground">

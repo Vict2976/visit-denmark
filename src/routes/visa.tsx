@@ -48,6 +48,7 @@ const steps = [
   "Processing usually takes up to 15 days, but can be longer in peak season.",
 ];
 
+// @uxid src/routes/visa::VisaPage
 function VisaPage() {
   return (
     <>
@@ -121,7 +122,7 @@ function VisaPage() {
             { href: "https://travel-europe.europa.eu/etias_en", label: "ETIAS — official EU site" },
             { href: "https://travel-europe.europa.eu/ees_en", label: "EES — official EU site" },
           ].map((l) => (
-            <a
+            <a /* @uxid src/routes/visa::VisaPage.link */
               key={l.href}
               href={l.href}
               target="_blank"
