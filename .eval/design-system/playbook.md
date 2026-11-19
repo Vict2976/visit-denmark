@@ -1,6 +1,6 @@
 # Design system playbook
 
-This product's UI centers on an AI chat experience: the extracted components are all ai-elements for a scrolling conversation, individual assistant/user messages with branching and actions, and a composable prompt input with attachments, screenshots, action menus, selects, and hover cards. The token set defines a themed surface palette (background, card, popover, overlay, muted, accent, primary with deep/soft variants, secondary, destructive, border, input, ring), a dedicated sidebar palette, a five-step chart palette, display and sans typography families, a radius scale, card and lift shadows, and hero/red gradients. The design system is organized as small composable primitives that are assembled into the conversation and input surfaces.
+This is an AI chat interface built from a set of ai-elements: a scrolling conversation surface, individual messages with actions and branch navigation, and a composable prompt input for authoring and submitting prompts with attachments, screenshots, selects, and hover cards. The token set defines a light/dark-style palette with background, card, popover, overlay, muted, primary, secondary, accent, and destructive roles plus matching foregrounds, a dedicated sidebar palette, five chart colors, display and sans typography faces, a multi-step radius scale, card and lift shadows, and hero and red gradients. Values, scales, and usage counts are supplied separately.
 
 ## In one screen
 
