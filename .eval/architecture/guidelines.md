@@ -2,18 +2,12 @@
 
 Conventions backed by **≥2** real, verbatim code examples. Anything with fewer is omitted below.
 
-## Tooling configuration files (Drizzle, ESLint, Vite, Vitest) should be a single `export default` of the tool's own `defineConfig`/`config` helper so settings stay typed and discoverable.
+## Tooling config files export a single default object via the tool's defineConfig helper rather than ad-hoc exports.
 
 - `drizzle.config.ts`:
 
   ```
   export default defineConfig({
-  ```
-
-- `eslint.config.js`:
-
-  ```
-  export default tseslint.config(
   ```
 
 - `vite.config.ts`:
@@ -28,7 +22,13 @@ Conventions backed by **≥2** real, verbatim code examples. Anything with fewer
   export default defineConfig({
   ```
 
-## When wrapping a Radix primitive that needs no custom styling, alias the primitive directly to a `const` (e.g. `Root`, `Trigger`) and export it rather than creating a wrapper component.
+- `eslint.config.js`:
+
+  ```
+  export default tseslint.config(
+  ```
+
+## UI primitives that wrap Radix without extra styling re-export the Radix part as a plain const alias (e.g. Root/Trigger) instead of wrapping in a new component.
 
 - `src/components/ui/accordion.tsx`:
 
@@ -54,7 +54,7 @@ Conventions backed by **≥2** real, verbatim code examples. Anything with fewer
   const AspectRatio = AspectRatioPrimitive.Root;
   ```
 
-## Styled UI primitives in `src/components/ui` should use `React.forwardRef` with explicit element and `ComponentPropsWithoutRef` generics so refs and native props pass through.
+## Styled UI primitives are built with React.forwardRef, typed against the underlying element or Radix primitive props, so refs are forwarded to the DOM.
 
 - `src/components/ui/accordion.tsx`:
 
@@ -92,7 +92,7 @@ Conventions backed by **≥2** real, verbatim code examples. Anything with fewer
   const BreadcrumbList = React.forwardRef<HTMLOListElement, React.ComponentPropsWithoutRef<"ol">>(
   ```
 
-## Define visual variants for UI primitives with `cva(...)` in a module-level `*Variants` constant and derive the component's props from it.
+## Visual variants for UI primitives are defined with class-variance-authority (cva) in a `<name>Variants` const colocated with the component.
 
 - `src/components/ui/alert.tsx`:
 
@@ -112,7 +112,7 @@ Conventions backed by **≥2** real, verbatim code examples. Anything with fewer
   const buttonGroupVariants = cva(
   ```
 
-## AI element components should export a named `*Props` type derived from the underlying element/component props and accept `{ className, ...props }` so callers can extend styling and forward attributes.
+## AI element components export an explicit Props type derived from the underlying component/HTML attributes and destructure `className` plus rest props to allow consumer overrides.
 
 - `src/components/ai-elements/conversation.tsx`:
 
@@ -138,7 +138,7 @@ Conventions backed by **≥2** real, verbatim code examples. Anything with fewer
   export const Message = ({ className, from, ...props }: MessageProps) => (
   ```
 
-## Application-level components (header, footer, hero, CTA) are plain named `function` exports taking a dedicated props interface or inline typed object, not forwardRef wrappers.
+## Application-level (non-primitive) components are declared as named `function` exports with an explicit props interface or inline typed destructuring.
 
 - `src/components/chat-cta.tsx`:
 
@@ -176,7 +176,7 @@ Conventions backed by **≥2** real, verbatim code examples. Anything with fewer
   function ButtonGroup({
   ```
 
-## Compose cross-cutting server concerns (CSRF, auth, error normalization) as separate TanStack Start middleware constants and register them on the start instance rather than inlining logic in handlers.
+## Server-side cross-cutting concerns (error handling, CSRF) are implemented as TanStack Start middleware consts in src/start.ts and composed into the start instance.
 
 - `src/start.ts`:
 
@@ -190,24 +190,12 @@ Conventions backed by **≥2** real, verbatim code examples. Anything with fewer
   const csrfMiddleware = createCsrfMiddleware({
   ```
 
-## Server-entry and helper code should declare explicit `type` aliases and typed async function signatures (returning `Promise<T>`) instead of relying on inference for module boundaries.
+## Internal helper shapes are given explicit local `type` aliases rather than inline anonymous types, especially for server entry and motion wrappers.
 
 - `src/server.ts`:
 
   ```
   type ServerEntry = {
-  ```
-
-- `src/server.ts`:
-
-  ```
-  async function getServerEntry(): Promise<ServerEntry> {
-  ```
-
-- `src/components/ai-elements/prompt-input.tsx`:
-
-  ```
-  const convertBlobUrlToDataUrl = async (url: string): Promise<string | null> => {
   ```
 
 - `src/components/ai-elements/shimmer.tsx`:
@@ -216,7 +204,13 @@ Conventions backed by **≥2** real, verbatim code examples. Anything with fewer
   type MotionHTMLProps = MotionProps & Record<string, unknown>;
   ```
 
-## Keep module-level singletons (QueryClient, caches, navigation arrays) as top-level `const` declarations outside component bodies so they are created once per module.
+- `src/components/ai-elements/conversation.tsx`:
+
+  ```
+  export type ConversationProps = ComponentProps<typeof StickToBottom>;
+  ```
+
+## Module-level singletons (QueryClient, caches, nav config) are created once as top-level consts rather than inside components or per request.
 
 - `src/router.tsx`:
 
