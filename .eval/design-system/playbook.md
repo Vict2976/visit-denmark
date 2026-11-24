@@ -1,6 +1,6 @@
 # Design system playbook
 
-This product's extracted UI is an AI conversation interface: a scrolling message thread, individual messages with actions and branch navigation, and a composable prompt input for sending text, attachments, and screenshots. The token set defines a themed surface palette (background, card, popover, overlay, sidebar, muted, accent, primary with deep and soft variants, secondary, destructive, border, input, ring), a five-step chart palette, display and sans typography families, a radius scale, card and lift shadows, and hero and red gradients. All tokens live in src/styles.css; all annotated components live under src/components/ai-elements.
+This design system backs an AI chat product: the component inventory is entirely made up of ai-elements for a conversation thread, individual messages (including branching between alternative responses), and a composer for submitting prompts with attachments and screenshots. The token set in src/styles.css defines surface and foreground color pairs (t0–t12), a primary scale with deep and soft steps (t14–t16), secondary, accent and destructive roles (t13, t17–t19), border/input/ring tokens (t20–t22), a dedicated sidebar palette (t23–t30), five chart colors (t31–t35), display and sans typography (t36–t37), a radius scale from sm to 4xl (t38–t45), card and lift shadows (t46–t47), and two gradients (t48–t49). Values are supplied mechanically and are not described here.
 
 ## In one screen
 
